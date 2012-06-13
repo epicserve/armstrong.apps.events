@@ -9,8 +9,8 @@ from .managers import EventManager, CurrentSiteEventManager
 
 class BaseEvent(PublicationMixin):
 
-    slug = models.SlugField()
     title = models.CharField(max_length=100)
+    slug = models.SlugField()
     location = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     start_date = models.DateTimeField(db_index=True)
