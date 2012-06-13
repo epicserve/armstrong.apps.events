@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ object.title }}{% endblock title %}
+
+{% block base_content %}
+
+<ul class="breadcrumb">
+    <li><a href="{% url event_list %}">Events</a> <span class="divider">/</span></li>
+    <li class="active">{{ object.title }}</li>
+</ul>
+
+<div class="page-header">
+  <div class="btn-group pull-right">
+  {% if object.has_rsvp %}<a class="btn" href="{% url rsvp_create object.slug %}">RSVP</a>{% endif %}
+  </div>
+  <h1>{{ object.title }}</h1>
+</div>
+
+<dl class="dates dl-horizontal">
+    <dt>All Day Event</dt>
+    <dd align="all_day">{% if object.all_day %}Yes{% else %}No</dd>{% endif %}
+    <dt>Publication Date</dt>
+    <dd class="pub_date">{{ object.pub_date }}</dd>
+    <dt>Start Date</dt>
+    <dd class="start_date">{{ object.start_date }}</dd>
+    <dt>End Date</dt>
+    <dd class="end_date">{{ object.end_date }}</dd>
+</dl>
+
+<dl class="info dl-horizontal">
+    <dt>Location</dt>
+    <dd class="location">{{ object.location }}</dd>
+    {% if object.description %}
+    <dt>Description</dt>
+    <dd class="description">{{ object.description }}</dd>
+    {% endif %}
+</dl>
+
+{% endblock %}

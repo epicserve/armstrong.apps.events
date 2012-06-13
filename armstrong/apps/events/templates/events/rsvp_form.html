@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}RSVP{% endblock title %}
+
+{% block base_content %}
+
+<div class="page-header">
+  <h1>RSVP</h1>
+</div>
+
+<form action="." method="post">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+    <div class="alert alert-error">
+        <a class="close" data-dismiss="alert">&times;</a></a>
+        {% for non_field_error in form.non_field_errors %}
+             {{ non_field_error }}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% for field in form.hidden_fields %}
+    {{ field }}
+    {% endfor %}
+
+    {% for field in form.visible_fields %}
+    <div class="control-group{% if field.errors %} error{% endif %}{% if field.field.required %} required{% endif %}">
+        <label class="control-label" for="{{ field.auto_id }}">{{ field.label }}</label>
+        <div class="controls">
+            {{ field }}
+
+            {% for error in field.errors %}
+                <span class="help-inline">{{ error }}</span>
+            {% endfor %}
+
+            {% if field.help_text %}
+            <p class="help-block">
+                {{ field.help_text|safe }}
+            </p>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button class="btn">Cancel</button>
+    </div>
+</form>
+
+{% endblock %}
